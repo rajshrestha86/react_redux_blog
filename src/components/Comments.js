@@ -9,7 +9,7 @@ const Comments=(props)=>{
                  <div className='list-group-item' key={comment.id}> 
                        <b> Name: {comment.name} </b> ({comment.email})  <br/>
                        <div className='list-group-item'> <b> Comment: </b> <p> {comment.comment} </p> </div>
-
+                       <button className='btn btn-danger' >Delete </button>
                  </div>
         );
     });

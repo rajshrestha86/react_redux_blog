@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router'
+import { Editor } from 'slate-react';
+import RichText from './RichText';
+import Html from 'slate-html-serializer';
 
 class Create extends Component {
   
@@ -20,10 +23,21 @@ class Create extends Component {
       this.state={
         redirect: false,
         date: newdate,
-        success: false
+        success: false,
+        value: 'text'
       }
+
+      
   }
 
+
+
+ 
+
+
+  onChange=({value})=>{
+      this.setState({ value});
+  }
 
  
 
@@ -38,14 +52,14 @@ class Create extends Component {
                 'author_name':this.refs.Author.value, 
                 'title': this.refs.Title.value,
                 'description': this.refs.Description.value,
-                'post': this.refs.Blog.value.replace(/\n/g, '\n'),
+                'post': this.state.blog_value,
                 'time': this.state.date })
     }).then(res => {return res.json()}).then(data=> {this.setState({success: true});}).catch(function(ex){console.log('parsing failed', ex) });
 
     this.refs.Author.value='';
     this.refs.Title.value='';
     this.refs.Description.value='';
-    this.refs.Blog.value='';
+    this.setState({value: ''});
     
     
 
@@ -75,12 +89,15 @@ class Create extends Component {
               <div className='list-group-item'>
                   
                   <form  method="POST" onSubmit={this.submit.bind(this)}>
-                   <input ref="Author" type="text" className="form-control" placeholder="Author" id="Author"/> <br/>
-                   <input ref="Title" type="text" className="form-control" placeholder="Title" id="Title"/>  <br />
-                   <textarea ref="Description" type="text" className="form-control" placeholder="Give a short description about your blog." id="Description"/> <br/>
-                   <textarea ref="Blog" type="text" className="form-control" placeholder="Contents of your Blog." id="Blog" rows='10'/> <br/>
-                   <input ref="Time" type="hidden"  />
-                   <button type="Submit" className="btn btn-success">Post</button>  
+                    <input ref="Author" type="text" className="form-control" placeholder="Author" id="Author"/> <br/>
+                    <input ref="Title" type="text" className="form-control" placeholder="Title" id="Title"/>  <br />
+                    <textarea ref="Description" type="text" className="form-control" placeholder="Give a short description about your blog." id="Description"/> <br/>
+                    {/* <Editor placeholder="Contents of your blog." value={this.state.value} onChange={this.onChange} /> */}
+                    <textarea ref="Blog" type="text" className="form-control" placeholder="Contents of your Blog." id="Blog" rows='10'/> <br/>
+                    <RichText placeholder="Enter your contents."/>
+  
+                    <input ref="Time" type="hidden"  />
+                    <button type="Submit" className="btn btn-success">Post</button>  
 
                   </form>
                </div>   

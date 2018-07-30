@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import BlogList from  './BlogList';
+import BlogList from  '../containers/Blog_List';
 
 class Home extends Component {
 

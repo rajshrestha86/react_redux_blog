@@ -7,10 +7,13 @@ class BlogDetail extends Component{
     constructor(props)
     {
     super(props);
-    this.state={
-        comments: []
-    };
-    this.get_comments();
+    
+    // this.setState(this.props.comments);
+
+    }
+
+    componentDidMount(){
+        console.log("I am showing the comment",this.props.comments);
     }
 
     get_comments(){
@@ -23,17 +26,24 @@ class BlogDetail extends Component{
     {
         console.log("Submit button clicked");
         event.preventDefault();
-        fetch('http://localhost:3010/comments', {
-            method: 'post',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({  'post_id' : this.props.id, 
+
+        this.props.addComment(
+            JSON.stringify({  'post_id' : this.props.id, 
                     'name':this.refs.Name.value, 
                     'email': this.refs.Email.value,
                     'comment': this.refs.Comment.value})
-        }).then(res => {return res.json()}).then(data=> {
-                                                        this.setState({comments: [...this.state.comments, data]});
-                                                        console.log(JSON.stringify(data));
-                                                                                            }).catch(function(ex){console.log('parsing failed', ex) });
+        )
+        // fetch('http://localhost:3010/comments', {
+        //     method: 'post',
+        //     headers: {'Content-Type':'application/json'},
+        //     body: JSON.stringify({  'post_id' : this.props.id, 
+        //             'name':this.refs.Name.value, 
+        //             'email': this.refs.Email.value,
+        //             'comment': this.refs.Comment.value})
+        // }).then(res => {return res.json()}).then(data=> {
+        //                                                 this.setState({comments: [...this.state.comments, data]});
+        //                                                 console.log(JSON.stringify(data));
+        //                                                                                     }).catch(function(ex){console.log('parsing failed', ex) });
         this.refs.Name.value='';
         this.refs.Email.value='';
         this.refs.Comment.value='';
@@ -61,7 +71,7 @@ class BlogDetail extends Component{
                    <div className='list-group-item' > 
                     <h5> Comments: </h5>
                     
-                        <Comments comments={this.state.comments} />
+                        <Comments comments={this.props.comments} />
                         <br/>
                         <div className='list-group'>
                             <form method="POST" onSubmit={this.submit.bind(this)} >

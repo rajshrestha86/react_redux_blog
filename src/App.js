@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
-import Create from  './components/Create';
-import Detail from  './components/Detail';
+import Create from  './containers/Blog_Create';
+import Detail from  './containers/Blog_Detail';
 import Home from  './components/Home';
 
 
