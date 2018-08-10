@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router'
-import { Editor } from 'slate-react';
 import RichText from '../components/RichText';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -12,9 +10,6 @@ class Create extends Component {
   constructor(props)
   {
     super(props);
-   
-
-    
       var dateObj = new Date();
       var month = dateObj.getUTCMonth() + 1; //months from 1-12
       var day = dateObj.getUTCDate();
@@ -32,11 +27,7 @@ class Create extends Component {
         value: 'text',
         requested: false
 
-      }
-
-    
-
-      
+      }     
   }
 
 
@@ -59,21 +50,7 @@ class Create extends Component {
         'description': this.refs.Description.value,
         'post': this.refs.Blog.value,
         'time': this.state.date }));
-    this.setState({requested: true})
-    // fetch('http://localhost:3010/posts', {
-    //     method: 'post',
-    //     headers: {'Content-Type':'application/json'},
-    //     body: JSON.stringify({  
-    //             'author_name':this.refs.Author.value, 
-    //             'title': this.refs.Title.value,
-    //             'description': this.refs.Description.value,
-    //             'post': this.state.blog_value,
-    //             'time': this.state.date })
-    // }).then(res => {return res.json()}).then(data=> {this.setState({success: true});}).catch(function(ex){console.log('parsing failed', ex) });
-
-    
-    
-    
+    this.setState({requested: true})  
 
   }
   
@@ -84,8 +61,6 @@ class Create extends Component {
         this.refs.Title.value='';
         this.refs.Description.value='';
         this.refs.Blog.value='';
-        // return <Redirect to='/'/>;
-
     }
        
     return (
@@ -111,13 +86,10 @@ class Create extends Component {
                     <input ref="Author" type="text" className="form-control" required placeholder="Author" id="Author"/> <br/>
                     <input ref="Title" type="text" className="form-control" required placeholder="Title" id="Title"/>  <br />
                     <textarea ref="Description" type="text" className="form-control" required placeholder="Give a short description about your blog." id="Description"/> <br/>
-                    {/* <Editor placeholder="Contents of your blog." value={this.state.value} onChange={this.onChange} /> */}
                     <textarea ref="Blog" type="text" className="form-control" required placeholder="Contents of your Blog." id="Blog" rows='10'/> <br/>
                     <RichText placeholder="Enter your contents."/>
-  
                     <input ref="Time" type="hidden"  />
                     <button type="Submit"  className="btn btn-success" >Post</button> 
-                    
                   </form>
                </div>   
 
